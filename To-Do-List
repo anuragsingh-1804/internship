@@ -1,0 +1,59 @@
+# To-Do-List
+import datetime
+from tabulate import tabulate
+
+ToDoList = [
+    {"description": "DANCE", "completed": True, "dateAdded": datetime.datetime.now()},
+    {"description": "Exercise", "completed": False, "dateAdded": datetime.datetime.now()},
+    {"description": "Fun", "completed": False, "dateAdded": datetime.datetime.now()},
+    {"description": "Study", "completed": True, "dateAdded": datetime.datetime.now()}
+    ]
+
+def create_task():
+    name = input("Enter task name: ")
+    new_task = {"description": name, "completed": False, "dateAdded": datetime.datetime.now()}
+    ToDoList.append(new_task)
+
+def display_tasks():
+    headers = ["Id","Description","Completed?","Added on"]
+    data = [[x+1] + list(ToDoList[x].values()) for x in range(len(ToDoList))]
+    print(tabulate(data,headers, tablefmt='fancy_grid'))
+   
+def toggle_status(task_id):
+    global ToDoList
+    ToDoList[task_id -1]["completed"] = not ToDoList[task_id-1]["completed"]
+   
+def update_task():
+    display_tasks()
+    task_id = int(input("Enter task id to update: "))
+    if 1 <= task_id <= len(ToDoList):
+        new_description = input("Enter the new task description: ")
+        ToDoList[task_id - 1]["description"] = new_description
+    else:
+        print("Invalid task ID")
+
+       
+while(True):
+    print("TODOLIST MENU")
+    print("\t1. Create new task")
+    print("\t2. Update existing task")
+    print("\t3. Display all tasks")
+    print("\t4. Mark task complete")
+    print("\t5. Exit")
+    userinput = input("\nEnter choice: ").strip()
+    match userinput:
+        case "1":
+            create_task()
+        case "2":
+            update_task()
+        case "3":
+            display_tasks()
+        case "4":
+            task_id = int(input("Enter task id: "))
+            toggle_status(task_id)
+            display_tasks()
+        case "5":
+            print("GoodBye!!")
+            quit()
+        case _:
+            print("\nInvalid Choice")
