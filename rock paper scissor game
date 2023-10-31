@@ -1,0 +1,31 @@
+# rock paper scissor game
+import random
+def rock_paper_scissor(num):
+    Player_score = 0
+    Computer_score = 0
+    for _ in range(num):
+        computer_moves = ["Paper", "Rock", "Scissor"]
+        print("Choose: ")
+        print("1. Rock")
+        print("2. Scissor")
+        print("3. Paper")
+        player_choice = int(input("Enter Choice: ")) - 1
+        computer_choice = random.randrange(3)
+        print("\nComputer choose", computer_moves[computer_choice])
+        if (player_choice == computer_choice):
+            print("Player LOST")
+            Computer_score += 1
+        else:
+            print("Player WON")
+            Player_score += 1
+        print("\nPlayer score: ",Player_score)
+        print("\nComputer score: ",Computer_score)
+    print()
+    if(Player_score > Computer_score):
+        print("Player won the game with ",Player_score,"score")
+    elif(Player_score < Computer_score):
+        print("Computer won the game with ",Computer_score,"score")
+    else:
+        print("TIE")
+rounds = int(input("Enter number of rounds: "))
+rock_paper_scissor(rounds)
